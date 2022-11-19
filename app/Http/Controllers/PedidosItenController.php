@@ -17,10 +17,10 @@ class PedidosItenController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(Request $request, $id)
     {
        
-        /*$id=intval($id);
+        $id=intval($id);
         
         $pedido=DB::table('pedidos')
         ->select('*')
@@ -28,13 +28,28 @@ class PedidosItenController extends Controller
         //->groupBy('status')
         ->get();
 
+        $p=$pedido->toArray();
+
+        //dd($p[0]->id_clientes);
+        $cliente=DB::table('clientes')
+        ->select('*')
+        ->where('id', '=',$p[0]->id_clientes)
+        //->groupBy('status')
+        ->get();
+        
+
+
+        
+        
+
         $pedidosItens = DB::table('pedidos_itens')
              ->select('*')
              ->where('id_pedidos', '=', $id)
              //->groupBy('status')
-             ->paginate(10);*/
+             ->paginate(10);
+             
 
-       $pedidosItens = PedidosIten::when( $request->term, function ($query, $term) {
+       /*$pedidosItens = PedidosIten::when( $request->term, function ($query, $term) {
             $query->where("id_pedidos", "ILIKE", "%" . $term . "%")
                 ->orWhere("id_pedidos", "ILIKE", "%" . $term . "%")
                 ->orWhere("id_servicos", "ILIKE", "%" . $term . "%")
@@ -58,10 +73,11 @@ class PedidosItenController extends Controller
                     "produto_clientes" => $pedidosIten->produto_clientes,
 
                 ];
-            });
+            });*/
         return Inertia::render('PedidosIten/Index', [
             'pedidosItens' => $pedidosItens,
-            //'pedido' => $pedido
+            'pedido' => $pedido,
+            "cliente" => $cliente,
 
         ]);
     }

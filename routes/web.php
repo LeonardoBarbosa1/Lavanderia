@@ -76,13 +76,13 @@ Route::get('pedidos-itens/export/' , 'App\Http\Controllers\PedidosItenController
         ->middleware(['auth:sanctum', 'verified'])->name('pedidos-itens.export');
 
 /*Route::get('pedidos-itens/{id}' , 'App\Http\Controllers\PedidosItenController@index')
-        ->middleware(['auth:sanctum', 'verified'])->name('pedidos-itens.index');     */   
+        ->middleware(['auth:sanctum', 'verified'])->name('pedidos-itens.index'); */       
 
 Route::resource('pedidos-itens', PedidosItenController::class)
         ->middleware(['auth:sanctum', 'verified']);
 
-/*Route::get('pedidos-itens/index/{id}' , 'App\Http\Controllers\PedidosItenController@index')
-->middleware(['auth:sanctum', 'verified'])->name('pedidos-item');*/
+Route::get('pedidos-itens/index/{id}' , 'App\Http\Controllers\PedidosItenController@index')
+->middleware(['auth:sanctum', 'verified'])->name('pedidos-item');
 
 Route::get('produtos-clientes/export/' , 'App\Http\Controllers\ProdutosClienteController@export')
         ->middleware(['auth:sanctum', 'verified'])->name('produtos-clientes.export');

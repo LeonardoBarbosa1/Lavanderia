@@ -13,6 +13,29 @@
             <div class="container">
                 <div class="mb-2 mt-6 flex justify-between items-center block">
                     <div class="px-0 my-3 rounded-xl flex flex-col">
+
+                        <div class="w-full max-w-xs">
+                            <form
+                                class="bg-white font-semibold rounded-lg px-10 max-w-max pt-8 pb-8 mb-4"
+                            >
+                                <div v-for="pedido in pedido" :key="pedido.id" class="mr-20">
+                                    <span> Id Pedido: {{ pedido.id }} </span> <br />
+
+                                    <span v-for="c in cliente" :key="cliente.nome">
+                                        Cliente: {{ c.nome }}
+                                    </span>
+                                    <br />
+
+                                    <span> Descrição: {{ pedido.descricao }} </span>
+                                    <br />
+                                </div>
+                                
+                            </form>
+                            
+                        </div>
+                        <br>
+                        
+
                         <div class="w-full">
                             <Link
                                 :href="route('pedidos-itens.create')"
@@ -57,7 +80,7 @@
                             <th
                                 class="bg-indigo-500 p-2 text-white font-bold md:border md:border-indigo-500 text-left block md:table-cell"
                             >
-                                Id 
+                                Id
                             </th>
                             <th
                                 class="bg-indigo-500 p-2 text-white font-bold md:border md:border-indigo-500 text-left block md:table-cell"
@@ -79,7 +102,7 @@
                             >
                                 Status
                             </th>
-                            
+
                             <th
                                 class="bg-indigo-500 p-2 text-white font-bold md:border md:border-indigo-500 text-left block md:table-cell"
                             >
@@ -149,8 +172,7 @@
                                     >Status</span
                                 >{{ pedidosIten.status }}
                             </td>
-                            
-                            
+
                             <td
                                 class="p-2 md:border md:border-grey-500 text-left block md:table-cell"
                             >
@@ -194,10 +216,15 @@
                                         )
                                     "
                                 >
-                                    <span class="rounded-full text-white shadow-lg">
-                                            <img  src="/storage/img/view.png" width="32" height="32"/> 
+                                    <span
+                                        class="rounded-full text-white shadow-lg"
+                                    >
+                                        <img
+                                            src="/storage/img/view.png"
+                                            width="32"
+                                            height="32"
+                                        />
                                     </span>
-
                                 </Link>
                                 <Link
                                     class="m-1 bg-green-700 hover:bg-green-800 text-white font-bold py-2 px-2 rounded"
@@ -210,8 +237,14 @@
                                         )
                                     "
                                 >
-                                    <span class="rounded-full text-white shadow-lg">
-                                        <img  src="/storage/img/lapis.png" width="32" height="32"/> 
+                                    <span
+                                        class="rounded-full text-white shadow-lg"
+                                    >
+                                        <img
+                                            src="/storage/img/lapis.png"
+                                            width="32"
+                                            height="32"
+                                        />
                                     </span>
                                 </Link>
 
@@ -221,8 +254,14 @@
                                     type="button"
                                     @click="destroy(pedidosIten)"
                                 >
-                                    <span class="rounded-full text-white shadow-lg">
-                                            <img  src="/storage/img/lixeira.png" width="32" height="32"/> 
+                                    <span
+                                        class="rounded-full text-white shadow-lg"
+                                    >
+                                        <img
+                                            src="/storage/img/lixeira.png"
+                                            width="32"
+                                            height="32"
+                                        />
                                     </span>
                                 </button>
                             </td>
@@ -243,6 +282,8 @@ import Pagination from "@/Shared/Pagination";
 export default {
     props: {
         pedidosItens: Object,
+        pedido: Object,
+        cliente: Object,
     },
     data() {
         return {
