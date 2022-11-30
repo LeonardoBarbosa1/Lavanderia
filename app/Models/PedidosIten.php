@@ -43,10 +43,10 @@ class PedidosIten extends Model
                         ['id'=>3,'descricao'=>'EXPEDIDO'],
                         ['id'=>4,'descricao'=>'CANCELADO']);
 
-    public function pedido()
+    /*public function pedido()
     {
         return $this->belongsTo(Pedido::class, 'id_pedidos');
-    }
+    }*/
 
     public function servico()
     {

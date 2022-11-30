@@ -1258,9 +1258,6 @@ select {
 .mr-0 {
 	margin-right: 0px;
 }
-.mr-20 {
-	margin-right: 5rem;
-}
 .block {
 	display: block;
 }
@@ -1397,9 +1394,6 @@ select {
 .max-w-4xl {
 	max-width: 56rem;
 }
-.max-w-xs {
-	max-width: 20rem;
-}
 .flex-1 {
 	flex: 1 1 0%;
 }
@@ -1457,6 +1451,9 @@ select {
 .list-disc {
 	list-style-type: disc;
 }
+.grid-flow-row-dense {
+	grid-auto-flow: row dense;
+}
 .grid-cols-6 {
 	grid-template-columns: repeat(6, minmax(0, 1fr));
 }
@@ -1465,6 +1462,9 @@ select {
 }
 .flex-row {
 	flex-direction: row;
+}
+.flex-row-reverse {
+	flex-direction: row-reverse;
 }
 .flex-col {
 	flex-direction: column;

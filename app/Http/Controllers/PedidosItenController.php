@@ -87,11 +87,20 @@ class PedidosItenController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request,$id)
     {
-        $pedidos = DB::table('pedidos')->get();
+        
+        $id=intval($id);
+        
+        $pedido=DB::table('pedidos')
+        ->select('*')
+        ->where('id', '=', $id)
+        //->groupBy('status')
+        ->get();
+        
+        /*$pedidos = DB::table('pedidos')->get();
         $ped = $pedidos->toArray();
-        $pedidos = array_unique($ped, SORT_REGULAR);
+        $pedidos = array_unique($ped, SORT_REGULAR);*/
 
         $servicos = DB::table('servicos')->get();
         $serv = $servicos->toArray();
@@ -106,7 +115,7 @@ class PedidosItenController extends Controller
 
         return Inertia::render('PedidosIten/Create', [
 
-            'pedidos' => $pedidos,
+            'pedido' => $pedido,
             'servicos' => $servicos,
             'status' => $status,
         ]);
@@ -119,10 +128,22 @@ class PedidosItenController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request,$id)
     {
+        $id=intval($id);
+        
+        $pedido=DB::table('pedidos')
+        ->select('*')
+        ->where('id', '=', $id)
+        //->groupBy('status')
+        ->get();
+        
+        
+       
+        
+      
         $request->validate([
-            'id_pedidos' => 'required',
+            
             'id_servicos' => 'required',
             'peso_medio_peca' => 'required',
             'valor' => 'required',
@@ -132,9 +153,11 @@ class PedidosItenController extends Controller
             'produto_clientes' => 'required',
 
         ]);
-
+        $pedidoItem=new PedidosItens();
+        $pedidoItem->id_pedidos=$id;
+        dd($pedidoItem);
         PedidosIten::create($request->all());
-        return Redirect::route('pedidos-itens.index');
+        return Redirect::route('pedidos-item');
     }
 
     /**
@@ -165,9 +188,9 @@ class PedidosItenController extends Controller
      */
     public function edit(PedidosIten $pedidosIten)
     {
-        $pedidos = DB::table('pedidos')->get();
+        /*$pedidos = DB::table('pedidos')->get();
         $ped = $pedidos->toArray();
-        $pedidos = array_unique($ped, SORT_REGULAR);
+        $pedidos = array_unique($ped, SORT_REGULAR);*/
 
         $servicos = DB::table('servicos')->get();
         $serv = $servicos->toArray();
@@ -184,7 +207,7 @@ class PedidosItenController extends Controller
             'PedidosIten/Update',
             [
                 'pedidosIten' => $pedidosIten,
-                'pedidos' => $pedidos,
+                /*'pedidos' => $pedidos,*/
                 'servicos' => $servicos,
                 'status' => $status
             ]

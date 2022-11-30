@@ -4,7 +4,7 @@
             <h2 class="font-semibold text-xl leading-tight">
                 <Link
                     class="text-indigo-400 hover:text-indigo-600"
-                    :href="route('pedidos-itens.index')"
+                    :href="route('pedidos-item',pedidoId)"
                     >PedidosItens
                 </Link>
                 <span class="text-indigo-400 font-medium">/</span>
@@ -19,7 +19,7 @@
                         <div
                             class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-5 mx-7"
                         >
-                            <div class="grid grid-cols-1">
+                            <!--<div class="grid grid-cols-1">
                                 <label
                                     class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold"
                                     >Id Pedidos</label
@@ -43,7 +43,7 @@
 
                                     <p class="error text-red-700" v-if="errors.id_pedidos">{{ errors.id_pedidos }}</p>
                                 </select>
-                            </div>
+                            </div>-->
                             <div class="grid grid-cols-1">
                                 <label
                                     class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold"
@@ -196,15 +196,18 @@
                             class="flex justify-end md:gap-8 gap-4 pt-5 pb-5 pr-5"
                         >
                             <Link
-                                :href="route('pedidos-itens.index')"
+                                :href="route('pedidos-item',pedidoId)"
                                 class="w-auto bg-gray-500 hover:bg-gray-700 rounded-lg shadow-xl font-medium text-white px-4 py-2"
                                 type="button"
                             >
                                 Cancelar
                             </Link>
                             <button
+                            
+                                  
                                 type="submit"
                                 class="w-auto bg-purple-500 hover:bg-purple-700 rounded-lg shadow-xl font-medium text-white px-4 py-2"
+                                
                             >
                                 Salvar
                             </button>
@@ -224,11 +227,20 @@ export default {
         AppLayout,
         Link,
     },
-    props: ["errors","pedidos","status","servicos"],
+    //props: ["errors","status","pedido","servicos"],
+    props: {
+        errors:Object,
+        status:Object,
+        pedido:Object,
+        servicos:Object,
+
+    },
     data() {
+        console.log("**************************>",this.pedido[0]['id']);
         return {
+            pedidoId:this.pedido[0]['id'],
             form: {
-                id_pedidos: null,
+                
                 id_servicos: null,
                 peso_medio_peca: null,
                 valor: null,
@@ -241,7 +253,7 @@ export default {
     },
     methods: {
         submit() {
-            this.$inertia.post(route("pedidos-itens.store"), this.form);
+            this.$inertia.post(route("pedidos-item-store"), this.form,this.pedidoId);
         },
     },
 };

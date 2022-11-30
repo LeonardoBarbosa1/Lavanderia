@@ -1,5 +1,5 @@
-<template>
-    <app-layout>
+<template   >
+    <app-layout >
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 PedidosItens
@@ -7,70 +7,79 @@
         </template>
 
         <div
+            
             class="flex items-center justify-center"
             style="background: #edf2f7"
         >
             <div class="container">
                 <div class="mb-2 mt-6 flex justify-between items-center block">
                     <div class="px-0 my-3 rounded-xl flex flex-col">
-
-                        <div class="w-full max-w-xs">
+                        <div class="">
                             <form
-                                class="bg-white font-semibold rounded-lg px-10 max-w-max pt-8 pb-8 mb-4"
+                                class="bg-white font-semibold rounded-lg px-10 grid-flow-row-dense pt-8 pb-8 mb-4"
                             >
-                                <div v-for="pedido in pedido" :key="pedido.id" class="mr-20">
-                                    <span> Id Pedido: {{ pedido.id }} </span> <br />
+                                <div v-for="pedidos in pedido" :key="pedidos.id">
+                                    <span> Id Pedido: {{ pedidos.id }} </span>
+                                    <br />
 
-                                    <span v-for="c in cliente" :key="cliente.nome">
+                                    <span
+                                        v-for="c in cliente"
+                                        :key="cliente.nome"
+                                    >
                                         Cliente: {{ c.nome }}
                                     </span>
                                     <br />
 
-                                    <span> Descrição: {{ pedido.descricao }} </span>
+                                    <span>
+                                        Descrição: {{ pedidos.descricao }}
+                                    </span>
                                     <br />
                                 </div>
-                                
                             </form>
-                            
                         </div>
-                        <br>
+                        <br />
+
                         
+                            <div
+                                
+                                class="w-full">
+                                <Link
+                                    :href="route('pedidos-item-create', pedidoId)"
+                                    
+                                    class="focus:outline-none text-white text-sm py-2.5 px-5 border-b-4 border-blue-600 rounded-md bg-blue-500 hover:bg-blue-400"
+                                >
+                                    Novo Item</Link
+                                >
 
-                        <div class="w-full">
-                            <Link
-                                :href="route('pedidos-itens.create')"
-                                class="focus:outline-none text-white text-sm py-2.5 px-5 border-b-4 border-blue-600 rounded-md bg-blue-500 hover:bg-blue-400"
-                                >Novo</Link
-                            >
+                                <a
+                                    type="button"
+                                    class="focus:outline-none text-white text-sm py-2.5 px-5 ml-2 border-b-4 border-green-600 rounded-md bg-green-700 hover:bg-green-500"
+                                    :href="
+                                        route('pedidos-itens.export', {
+                                            term: this.term,
+                                        })
+                                    "
+                                    download="file.xlsx"
+                                >
+                                    Exportar
+                                </a>
+                            </div>
+                        </div>
 
-                            <a
-                                type="button"
-                                class="focus:outline-none text-white text-sm py-2.5 px-5 ml-2 border-b-4 border-green-600 rounded-md bg-green-700 hover:bg-green-500"
-                                :href="
-                                    route('pedidos-itens.export', {
-                                        term: this.term,
-                                    })
-                                "
-                                download="file.xlsx"
+                        <div class="w-full max-w-max  flex-row-reverse mr-0">
+                            <label for="search" class="p-2 text-gray-700"
+                                >Filtro</label
                             >
-                                Exportar
-                            </a>
+                            <input
+                                id="search"
+                                type="text"
+                                v-model="term"
+                                @keyup.enter="search"
+                                class="px-2 py-1 text-sm rounded border"
+                            />
                         </div>
                     </div>
-
-                    <div class="w-full max-w-max mr-0">
-                        <label for="search" class="p-2 text-gray-700"
-                            >Filtro</label
-                        >
-                        <input
-                            id="search"
-                            type="text"
-                            v-model="term"
-                            @keyup.enter="search"
-                            class="px-2 py-1 text-sm rounded border"
-                        />
-                    </div>
-                </div>
+                
 
                 <table class="min-w-full border-collapse block md:table">
                     <thead class="block md:table-header-group">
@@ -280,14 +289,23 @@ import { Link } from "@inertiajs/inertia-vue3";
 import Pagination from "@/Shared/Pagination";
 
 export default {
+    
     props: {
         pedidosItens: Object,
         pedido: Object,
         cliente: Object,
+     
     },
+    
+    
     data() {
+        console.log("===================>",this.pedido[0]['id']);
+      
         return {
             term: "",
+            pedidoId:this.pedido[0]['id'],
+            
+            
         };
     },
     components: {
@@ -308,6 +326,13 @@ export default {
                 this.route("pedidos-itens.index", { term: this.term })
             );
         },
+        
     },
-};
+}    
+    
 </script>
+
+
+
+
+
