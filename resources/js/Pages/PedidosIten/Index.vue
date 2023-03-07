@@ -306,6 +306,7 @@ export default {
             pedidoId:this.pedido[0]['id'],
             
             
+            
         };
     },
     components: {

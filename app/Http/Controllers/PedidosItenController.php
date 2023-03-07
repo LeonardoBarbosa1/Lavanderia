@@ -113,6 +113,8 @@ class PedidosItenController extends Controller
                         ['id'=>4,'descricao'=>'CANCELADO']);
         $status = array_unique($status, SORT_REGULAR);
 
+        
+
         return Inertia::render('PedidosIten/Create', [
 
             'pedido' => $pedido,
@@ -130,18 +132,8 @@ class PedidosItenController extends Controller
      */
     public function store(Request $request,$id)
     {
-        $id=intval($id);
-        
-        $pedido=DB::table('pedidos')
-        ->select('*')
-        ->where('id', '=', $id)
-        //->groupBy('status')
-        ->get();
-        
-        
        
         
-      
         $request->validate([
             
             'id_servicos' => 'required',
@@ -153,9 +145,7 @@ class PedidosItenController extends Controller
             'produto_clientes' => 'required',
 
         ]);
-        $pedidoItem=new PedidosItens();
-        $pedidoItem->id_pedidos=$id;
-        dd($pedidoItem);
+        
         PedidosIten::create($request->all());
         return Redirect::route('pedidos-item');
     }

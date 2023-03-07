@@ -203,7 +203,7 @@
                                 Cancelar
                             </Link>
                             <button
-                            
+                                
                                   
                                 type="submit"
                                 class="w-auto bg-purple-500 hover:bg-purple-700 rounded-lg shadow-xl font-medium text-white px-4 py-2"
@@ -253,7 +253,7 @@ export default {
     },
     methods: {
         submit() {
-            this.$inertia.post(route("pedidos-item-store"), this.form,this.pedidoId);
+            this.$inertia.post(route("pedidos-item-store"), this.form,this.pedido[0]['id']);
         },
     },
 };

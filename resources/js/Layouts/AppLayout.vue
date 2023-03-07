@@ -50,6 +50,8 @@
 	
 <jet-nav-link id='pedidos-itens-item-menu' :href="route('pedidos-itens.index')" :active="route().current('pedidos-itens.index')">PedidosItens
         </jet-nav-link>
+
+
 	
 
 	<!--endMenu--> 
@@ -273,10 +275,14 @@
     import JetResponsiveNavLink from '@/Jetstream/ResponsiveNavLink.vue'
     import { Head, Link } from '@inertiajs/inertia-vue3';
 
+    
+
     export default defineComponent({
         props: {
             title: String,
         },
+
+        
 
         components: {
             Head,
